@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
+</head>
+<body>
+	<section>
+		<div class="card">
+			<div class="card-body">
+				<h1 class="text-center">Add Contact</h1>
+				<div class="container-fluid mt-1">
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<form action="#" th:object="${contact}"
+								enctype="multipart/form-data" method="POST"
+								th:action="@{/user/process-contact}" class="mt-2">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fa fa-plus"></i>
+										</div>
+
+									</div>
+									<input type="text" id="firstName" name="name"
+										placeholder="Enter Name Here" class="form-control" />
+
+								</div>
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fas fa-user-alt"></i>
+										</div>
+
+									</div>
+									<input type="text" id="secondName" name="secondName"
+										placeholder="Enter second name here" class="form-control" />
+
+								</div>
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fas fa-phone"></i>
+										</div>
+
+									</div>
+									<div class="phone-list">
+
+										<div class="input-group phone-input">
+											<span class="input-group-btn"> </span> <input type="text"
+												name="numbers" class="form-control" />
+										</div>
+
+									</div>
+
+
+									<button type="button"
+										class="btn btn-success btn-sm btn-block btn-add-phone">
+										<span class="glyphicon glyphicon-plus"></span> Add Phone
+									</button>
+								</div>
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text">@</div>
+
+									</div>
+									<input type="email" id="email" name="email"
+										placeholder="Enter email here" class="form-control" />
+
+								</div>
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fa fa-briefcase"></i>
+										</div>
+
+									</div>
+									<input type="text" id="work" name="work"
+										placeholder="Enter occupation here" class="form-control" />
+
+								</div>
+								<div class="form-group mt-3">
+									<textarea rows="10" name="description" id="description"
+										class="form-control" placeholder="enter contact description"></textarea>
+								</div>
+								<div class="custom-file">
+									<input type="file" name="profileImage" />
+								</div>
+								<div class="container text-center">
+									<button class="btn btn-outline-primary">Save Contact</button>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script
+			src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+			referrerpolicy="origin"></script>
+		<script>
+      tinymce.init({
+        selector: '#description'
+      });
+    </script>
+		<script>
+				$(document).ready(() => {
+					$(".items").removeClass("active");
+					$("#add-link").addClass("active");
+				});
+			</script>
+		<script>
+		$(function() {
+
+			$(document.body).on(
+					'click',
+					'.changeType',
+					function() {
+						$(this).closest('.phone-input').find('.type-text')
+								.text($(this).text());
+						$(this).closest('.phone-input').find('.type-input')
+								.val($(this).data('type-value'));
+					});
+
+			$(document.body).on('click', '.btn-remove-phone', function() {
+				$(this).closest('.phone-input').remove();
+			});
+
+			$('.btn-add-phone')
+					.click(
+							function() {
+
+								var index = $('.phone-input').length + 1;
+
+								$('.phone-list')
+										.append(
+												''
+														+ '<div class="input-group phone-input">'
+														+ '<input type="text" name="numbers" class="form-control" />'
+														+ '<span class="input-group-btn">'
+														+ '<button class="btn btn-danger btn-remove-phone" type="button"><span class="glyphicon glyphicon-remove"></span></button>'
+														+ '</span>' + '</div>');
+
+							});
+
+		});
+	</script>
+
+	</section>
+</body>
+
+
+</html>

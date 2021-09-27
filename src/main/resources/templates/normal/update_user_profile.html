@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>This is home page</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card mt-3">
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}" class="alert"
+							role="alert">
+							<p class="text-center" th:text="${session.message.content}"></p>
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+						</div>
+						<h1 class="text-center">Update Your Details</h1>
+						<form novalidate action="" th:action="@{/user/process-update-user}" method="post"
+							th:object="${user}">
+							<div class="mb-3">
+								<label for="name" class="form-label">Name:</label> <input
+									name="name" type="text" class="form-control" th:classappend="${#fields.hasErrors('name') ? 'is-invalid':''}" id="name"
+									aria-describedby="emailHelp" placeholder="Enter your name"
+									required th:value="${user.name}">
+								<div class="invalid-feedback" th:each="e :${#fields.errors('name')}" th:text="${e}">
+								</div>
+							</div>
+							<div class="mb-3">
+								<label for="exampleInputEmail1" class="form-label">Email
+									address:</label> <input name="email" type="email" class="form-control"
+									id="email" aria-describedby="emailHelp"
+									placeholder="Enter your email address" th:value="${user.email}">
+							</div>
+							<div class="form-group">
+								<textarea name="about" class="form-control"
+									placeholder="Write something about yourself" rows="10"
+									id="about" th:text="${user.about}"></textarea>
+
+							</div>
+
+							<div class="container text-center mt-2">
+								<button type="submit" class="btn btn-primary">Save</button>
+								<button type="reset" class="btn btn-primary">Reset</button>
+							</div>
+
+
+						</form>
+
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+
+
+		</div>
+	</section>
+</body>
+
+
+</html>
